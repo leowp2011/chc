@@ -1,0 +1,17 @@
+.wrapper div.content-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 15px;
+}
+
+.container-wrapper div.container-relatorio {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 10px;
+}   
+
+.container-relatorio select {
+    margin-bottom: 10px;
+}

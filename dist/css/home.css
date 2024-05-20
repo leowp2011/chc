@@ -1,0 +1,46 @@
+.wrapper .content-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+div.container-projeto {
+    width: 400px;
+    margin: 10px;
+}
+
+div.container-projeto > div.card {
+    width: 400px;
+    height: 450px;
+}
+
+.card .row > .form-group {
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+}
+
+.form-group p {
+    margin-left: 5px;
+}
+
+div.icon-excluir, div.icon-editar {
+    margin: 0 auto;
+}
+
+div > a {
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.titulo         { grid-area: titulo; }
+.icon-editar    { grid-area: editar; }
+.icon-excluir   { grid-area: excluir; }
+
+div.grid-container {
+    display: grid;
+    grid-template-areas:
+        'titulo titulo titulo titulo titulo titulo editar excluir';
+    margin-bottom: 10px;
+}

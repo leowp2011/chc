@@ -1,0 +1,206 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+}
+
+/* section {
+	height: 100vh;
+} */
+
+/* section span 
+{
+	position: absolute;
+	border-radius: 5px;
+	pointer-events: none;
+	background: #fff;
+	z-index: -5;
+	animation: animate 5s linear infinite;
+	background-color: #08b908;
+}  */
+
+.container-login 
+{
+	max-width: 350px;
+	min-width: 300px;
+	height: 280px;
+	margin: 20px auto;
+	padding: 10px 40px;
+	background: rgba(0,0,0,.8);
+	box-shadow: 10px 15px 15px rgba(0,0,0,.7);
+	border-radius: 10px; 
+	font-family: sans-serif;
+} 
+.container-login form fieldset { border: none; }
+
+.container-login form fieldset legend 
+{
+	margin: 0 0 15px;
+	padding: 0;
+	color: #fff;
+	letter-spacing: 1px;
+	font-size: 28px;
+	text-align: center;
+}
+
+.container-login .input-form
+{
+	position: relative;
+	margin-bottom: 15px;
+}
+/* ESSE DOIS CSS TIRAR AS SETAS DO INPUT COM TYPE="NUMBER" */
+.input-form input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
+.input-form input[type="number"] {
+    -moz-appearance: textfield;
+}
+/*-------------------------------------------------*/
+
+.container-login .input-form input 
+{
+	width: 100%;
+	padding: 5px 0 2px;
+	padding-left: 5px;
+	letter-spacing: 1px;
+	margin-bottom: 0px;
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	font-size: 16px;
+	color: #fff;
+}
+
+
+.container-login .input-form label
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 5px 0;
+	font-size: 18px;
+	color: #fff;
+	pointer-events: none;
+	transition: .5s;
+}
+
+.submit-eye 
+{
+	position: absolute;
+	top: 0; 
+	right: 5px;
+	z-index: 1;
+	border:none;
+	background: transparent;
+	font-size: 20px; 
+	color: #e6e6e6;
+	cursor: pointer;
+	outline: none;
+}
+
+#fa-eye-slash 
+{
+	display: none;
+	color: #e6e6e6;
+}
+
+div #invalid-RA, #invalid-senha {
+	padding: 2px;
+	color: transparent;
+}
+
+.div-button {
+	display: flex;
+}
+
+.btn-login {
+	width: 200px;
+	margin: auto;
+	padding: 8px;
+	border: none;
+	border-radius: 5px;
+	font-family: sans-serif;
+	font-size: 18px;
+	color: #FFF;
+	background-color: #03a9f4;
+	cursor: pointer;
+	text-align: center;
+}
+.btn-login:focus {
+	outline: none;
+}
+
+.container-login form { overflow: hidden; }
+
+.container-login 
+{
+	animation-name: fade;
+	animation-duration: 2.1s;
+}
+
+form .btn-login
+{
+	animation: move 500ms;
+	animation-delay: 400ms;
+	animation-fill-mode: backwards;
+}
+
+.validate-error {
+	animation: nono 300ms linear, fade paused;
+	animation-iteration-count: 2;
+}
+
+@keyframes fade 
+{
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes move 
+{
+	from {
+		opacity: 0;
+		transform: translateX(400%) rotateX(30deg);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0%);
+	}
+}
+
+@keyframes animate 
+{
+	0% {
+		transform: scale(0) translateY(0) rotate(0deg);
+		opacity: 0;
+	}
+	10% {
+		opacity: 1;
+	}
+	90% {
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1) translateY(-500%) rotate(360deg);
+		opacity: 0;
+	}
+}
+
+@keyframes nono {
+	0%, 
+	100% {
+		transform: translateX(0);
+	}
+	35% {
+		transform: translateX(-7%);
+	}
+	70% {
+		transform: translateX(7%);
+	}
+}

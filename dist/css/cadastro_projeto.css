@@ -1,0 +1,7 @@
+.content-wrapper {
+    padding: 15px;
+}
+
+.content-wrapper input[type="submit"] {
+    margin: auto;
+}
