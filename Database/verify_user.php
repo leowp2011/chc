@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 	$conn = $conexao->getConexao();	
 
     // Instancia a classe Login
-    $login = new Login($conn);
+    $login = new Login();
 
 	// /*VERIFICA LOGIN NO BANCO */
 	$obj_user = $login->Autenticar($ra, $password);

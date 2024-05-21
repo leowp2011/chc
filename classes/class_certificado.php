@@ -13,7 +13,6 @@ class Certificado extends Usuario
     {
         $this -> conn          = $conn;
     }
-        
     
     // public function __construct(Usuario $usuario, $caminhoDocumento, $tipo) {
     //     $this->usuario = $usuario;
