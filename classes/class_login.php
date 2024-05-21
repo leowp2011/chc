@@ -5,15 +5,16 @@ require_once 'class_session.php';
 Session::Start();
 
 // Classe para manipulação do login
-class Login extends Usuario
+class Login
 {
 	private $conn;
     private $ra;
     private $password;
-    
+    private $usuario;
 	// Método para verificar as credenciais do usuário
 	public function __construct($conn)
 	{
+		$this->usuario = new Usuario();
 		$this->conn = $conn;
 	}
 	public function Autenticar($ra, $password) 
@@ -21,7 +22,7 @@ class Login extends Usuario
 		$this->ra 		= $ra;
 		$this->password = $password;
 
-		$obj_sql = $this->getDadosLogin($ra, $password, $this->conn);
+		$obj_sql = $this->usuario->getDadosLogin($ra, $password, $this->conn);
 		
 		try 
 		{
