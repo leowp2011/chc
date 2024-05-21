@@ -11,14 +11,10 @@ class Usuario
     private $tipo;
     private $conn;
     
-    // Construtor da classe
-    // public function __construct($id_usuario, $nome, $sobrenome, $ra, $tipo) 
+    // // Construtor da classe
+    // public function __construct($conn) 
     // {
-    //     $this -> id_usuario     = $id_usuario;
-    //     $this -> nome           = $nome;
-    //     $this -> sobrenome      = $sobrenome;
-    //     $this -> ra             = $ra;
-    //     $this -> tipo           = $tipo;
+    //     $this -> conn          = $conn;
     // }
 
     
@@ -42,11 +38,12 @@ class Usuario
     
         return $result_user -> fetch(PDO::FETCH_OBJ);
     }
+    
     public function getDadosLogin($ra, $password, $conn) 
     {
-        $this->ra       = $ra;
-        $this->password = $password;
-        $this->conn     = $conn;
+        // $this->ra       = $ra;
+        // $this->password = $password;
+        // // $this->conn     = $conn;
     
         // Prepara a consulta SQL
         $SQL_user = "SELECT id_usuario, nome, ra, tipo

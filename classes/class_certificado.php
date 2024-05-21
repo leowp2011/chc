@@ -11,11 +11,6 @@ class Certificado extends Usuario
     
     public function __construct($conn) 
     {
-    //     $this -> id_certificado = $id_certificado;
-    //     $this -> nome           = $nome;
-    //     $this -> caminho        = $caminho;
-    //     $this -> status         = $status;
-    //     $this -> horas          = $horas;
         $this -> conn          = $conn;
     }
         
@@ -37,10 +32,11 @@ class Certificado extends Usuario
                             INNER JOIN tipodocumento as TD 
                             ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
                             INNER JOIN modulo as M 
-                            ON (TD.id_moduloFK = M.id_modulo)";
+                            ON (TD.id_moduloFK = M.id_modulo)
+                            WHERE CER.status LIKE :filtro";
     
         $result_certificado = $this->conn -> prepare($SQL_certificado);
-        // $result_certificado->bindParam(':filtro', $filtro_valor, PDO::PARAM_STR);
+        $result_certificado->bindParam(':filtro', $filtro_valor, PDO::PARAM_STR);
         $result_certificado->execute();
 
             while ($row = $result_certificado->fetch(PDO::FETCH_OBJ)) {

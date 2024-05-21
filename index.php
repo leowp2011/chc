@@ -115,7 +115,7 @@ $login->VerificarLogin();
     </div>
 </section>
 
-    <!-- <a href="#" id="destroySession">SAIR</a> -->
+    <a href="#" id="destroySession">SAIR</a>
 
 <script src="dist/js/index.js"></script>
 <script>
