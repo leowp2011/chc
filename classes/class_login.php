@@ -39,7 +39,7 @@ class Login
         }
 		
 	}
-	C
+	
 	public  function VerificarLogin() {
 		// Verifica se existe os dados da sessão de login
 		if((!isset($_SESSION['logado'])) AND ($_SESSION['logado'] == false))
