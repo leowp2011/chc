@@ -34,6 +34,7 @@
 
 					<label class="label label-RA">RA</label> 
 					
+					
 					<div id="invalid-RA"> <small> O RA é obrigatório. </small> </div>
 				</div>	
 
