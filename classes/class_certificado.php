@@ -1,17 +1,20 @@
 <?php
 require_once 'class_usuario.php';
-class Certificado extends Usuario 
+class Certificado
 {
     private $id_certificado;
     private $nome;
     private $caminho;
     private $status;
     private $horas;
+
     private $conn;
+    private $usuario;
     
-    public function __construct($conn) 
+    public function __construct() 
     {
-        $this -> conn          = $conn;
+        $this->conn       = new ConexaoPDO();
+        $this->usuario    = new Usuario();
     }
     
     // public function __construct(Usuario $usuario, $caminhoDocumento, $tipo) {
@@ -34,7 +37,7 @@ class Certificado extends Usuario
                             ON (TD.id_moduloFK = M.id_modulo)
                             WHERE CER.status LIKE :filtro";
     
-        $result_certificado = $this->conn -> prepare($SQL_certificado);
+        $result_certificado = $this->conn->getConexao() -> prepare($SQL_certificado);
         $result_certificado->bindParam(':filtro', $filtro_valor, PDO::PARAM_STR);
         $result_certificado->execute();
 
@@ -58,6 +61,19 @@ class Certificado extends Usuario
                         </div>
                     </div>';
             }
+    }
+
+    public function AprovarCertificado($id_certificado)
+    {
+        $SQL_update ="UPDATE certificado 
+                set 
+                    status = 'pendente'
+                where 
+                    id_certificado = :id_certificado";
+
+        $SQL_update = $this->conn->getConexao() -> prepare($SQL_update);
+        $SQL_update->bindParam(':id_certificado', $id_certificado, PDO::PARAM_INT);
+        $SQL_update->execute();
     }
 
 }

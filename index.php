@@ -8,7 +8,7 @@ require_once 'classes/class_certificado.php';
 $conexao = new ConexaoPDO();
 $conn = $conexao->getConexao();	
 
-$login = new Login($conn);
+$login = new Login();
 $login->VerificarLogin();
 
 ?>

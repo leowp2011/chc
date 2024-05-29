@@ -81,7 +81,8 @@
                             </div>
                         </form>
                         <div class="aprovar-buttons">
-                            <button class="btn-approve">Aprovar</button>
+                            <button class="btn-approve" onclick=
+                            >Aprovar</button>
                             <button class="btn-reject">Reprovar</button>
                         </div>
                     </div>
