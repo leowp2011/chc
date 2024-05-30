@@ -25,7 +25,6 @@ class Certificado
     // }
 
     public function ListarCertificado($filtro_valor)
-    // $filtro_valor) {
     {
         // Prepara a consulta SQL
         $SQL_certificado = "SELECT * FROM certificado as CER 
@@ -56,7 +55,7 @@ class Certificado
                                 <p class="card-module">' .
                                 htmlspecialchars($row->nome_modulo)
                                 . '</p>
-                                <a href="#" class="btn btn-primary">Gerenciar Certificado</a>
+                                <a href="analisar certificado.php?certificado="'. $row->id_certificado .' class="btn btn-primary">Gerenciar Certificado</a>
                             </div>
                         </div>
                     </div>';

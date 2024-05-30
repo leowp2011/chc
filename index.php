@@ -107,7 +107,7 @@ $login->VerificarLogin();
         <div class="bottom-content">
             <?php
             
-            $certificado        = new Certificado($conn);
+            $certificado        = new Certificado();
             $listaCertificados  = $certificado->ListarCertificado('pendente');
 
             ?>
