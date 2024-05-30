@@ -44,9 +44,9 @@ class Usuario
     {
         // Prepara a consulta SQL
         $SQL_user = "SELECT id_usuario, nome, ra, tipo
-        FROM usuario 
-        WHERE ra = :ra AND senha = :password 
-        LIMIT 1";
+                FROM usuario 
+                    WHERE ra = :ra AND senha = :password 
+                LIMIT 1";
     
         $result_user = $this->conn->getConexao()->prepare($SQL_user);
         $result_user->bindParam(':ra', $ra, PDO::PARAM_INT);

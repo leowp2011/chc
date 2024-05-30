@@ -8,7 +8,7 @@ require_once 'classes/class_certificado.php';
 $conexao = new ConexaoPDO();
 $conn = $conexao->getConexao();	
 
-$login = new Login($conn);
+$login = new Login();
 $login->VerificarLogin();
 
 ?>
@@ -107,7 +107,7 @@ $login->VerificarLogin();
         <div class="bottom-content">
             <?php
             
-            $certificado        = new Certificado($conn);
+            $certificado        = new Certificado();
             $listaCertificados  = $certificado->ListarCertificado('pendente');
 
             ?>

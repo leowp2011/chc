@@ -81,7 +81,10 @@
                             </div>
                         </form>
                         <div class="aprovar-buttons">
-                            <button class="btn-approve">Aprovar</button>
+                            <form action="database/alter_certificate.php" method="POST">
+                                <label name="certificado" for="<?php echo $_GET['certificado']; ?>"></label>
+                                <input type="submit" class="btn-approve" value="Aprovar">
+                            </form>
                             <button class="btn-reject">Reprovar</button>
                         </div>
                     </div>

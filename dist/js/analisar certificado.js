@@ -9,4 +9,6 @@ document.getElementById('toggle-sidebar').addEventListener('click', function () 
     const arrow = this.querySelector('.arrow-icon');
     arrow.classList.toggle('rotate');
   });
+
+  
   

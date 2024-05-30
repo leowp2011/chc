@@ -16,14 +16,11 @@ class Login
 	// Método para verificar as credenciais do usuário
 	public function __construct()
 	{
-		$this->usuario = new Usuario();
-		// $this->conn = new ConexaoPDO();
+		$this->conn 	= new ConexaoPDO();
+		$this->usuario 	= new Usuario();
 	}
 	public function Autenticar($ra, $password) 
 	{
-		$this->ra 		= $ra;
-		$this->password = $password;
-
 		$obj_sql = $this->usuario->getDadosLogin($ra, $password);
 		
 		try 
@@ -39,12 +36,12 @@ class Login
         }
 		
 	}
-	C
+	
 	public  function VerificarLogin() {
 		// Verifica se existe os dados da sessão de login
 		if((!isset($_SESSION['logado'])) AND ($_SESSION['logado'] == false))
 		{    // Usuário não logado! Redireciona para a página de login
-			header("Location: ../login.php");
+			header("Location: login.php");
 			exit;
 	
 		}	
