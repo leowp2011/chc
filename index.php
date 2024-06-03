@@ -84,23 +84,25 @@ $login->VerificarLogin();
     <div id="main-content" class="main-content">
         <div class="top-content">
             <h2>Horas Complementares</h2>
-            <div class="filter-container">
-                <div class="custom-select" style="width:200px;">
-                    <ul><p>Selecione o filtro:</p></ul> 
-                    <select>
-                        <option value="0">Opções:</option>
-                        <option value="1">Nome do Aluno</option>
-                        <option value="2">Módulo 1</option>
-                        <option value="3">Módulo 2</option>
-                        <option value="4">Módulo 3</option>
-                        <option value="5">Módulo 4</option>
-                    </select>
-                </div>
+            <div class="filter-container flex-container">
+                <a>Selecione o Filtro:</a>
+                <select id="selectPrincipal">
+                    <option value="">Selecione:</option>
+                    <option value="nome">Nome do Aluno</option>
+                    <option value="modulo">Módulo</option>
+                    <option value="status">Status do Certificado</option>
+                </select>
+            
+                <div style="height: 10px;"></div>
+            
+                <select id="selectDependente" disabled style="display: none">
+                    <option value=""></option>
+                </select>
                 <form class="example" action="action_page.php">
-                    <p>Digite sua pesquisa:</p>   
                     <input type="text" placeholder="Pesquisar" name="search">
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
+                
             </div>
         </div>
         <hr>
@@ -108,7 +110,7 @@ $login->VerificarLogin();
             <?php
             
             $certificado        = new Certificado();
-            $listaCertificados  = $certificado->ListarCertificado('pendente');
+            $listaCertificados  = $certificado->ListarAllCertificado('pendente');
 
             ?>
         </div>

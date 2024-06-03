@@ -1,11 +1,17 @@
+<?php
+require_once 'classes/class_certificado.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>Gerenciar Certificado</title>
+    
     <link rel="stylesheet" href="dist/css/analisar certificado.css">
+    
+    <title>Gerenciar Certificado</title>
 </head>
 <body>
     <div class="top-bar">
@@ -16,6 +22,7 @@
             <button class="top-button"><i class="fas fa-user fa-lg"></i><br>Central do Aluno</button>
         </div>
     </div>
+
     <div class="container">
         <div id="sidebar" class="sidebar">
             <button id="toggle-sidebar"><i class="fas fa-bars"></i></button>
@@ -42,55 +49,103 @@
         </div>
         <div id="main-content" class="main-content">
             <div class="top-content">
-                <h2>Gerenciar Certificado</h2>
+                <h2 style="text-align:center;">Gerenciar Certificado</h2>
             </div>
-            <hr>
+
+            <?php
+            
+            $certificado = new Certificado();
+
+            $row_certificado = $certificado->getCertificate($_GET['certificado']);
+            
+            ?>
+
             <div class="bottom-content">
-                <div class="split-container">
-                    <div class="documento">
-                        <h2>Certificado</h2>
-                        <form action="action_page.php">
-                            <div class="form-group">
-                                <label for="usuarioNome" class="bold-label">Nome do Aluno:</label>
-                                <p id="usuarioNome">João da Silva</p>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="certificadoNome" class="bold-label">Documento:</label>
-                                <p id="certificadoNome">Certificado de Conclusão</p>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="certificadoHoras" class="bold-label">Quantas horas equivale:</label>
-                                <p id="certificadoHoras">40 horas</p>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="certificadoStatus" class="bold-label">Status Atual do Certificado:</label>
-                                <p id="certificadoStatus">Aprovado</p>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="idTipodocumentoFK" class="bold-label">Tipo de Documento:</label>
-                                <p id="idTipodocumentoFK">Certificado Acadêmico</p>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="moduloNome" class="bold-label">Módulo:</label>
-                                <p id="moduloNome">Módulo 1 - Introdução à Programação</p>
-                            </div>
-                        </form>
-                        <div class="aprovar-buttons">
-                            <form action="database/alter_certificate.php" method="POST">
-                                <label name="certificado" for="<?php echo $_GET['certificado']; ?>"></label>
-                                <input type="submit" class="btn-approve" value="Aprovar">
-                            </form>
-                            <button class="btn-reject">Reprovar</button>
-                        </div>
+                <!-- <div class="split-container"> -->
+                <div class="documento">
+
+                    <h2>Certificado</h2>
+                    
+                    <div class="form-group">
+                        <label for="usuarioNome" class="bold-label">Nome do Aluno:</label>
+                        <p id="usuarioNome">
+                        <?php 
+                            echo $row_certificado->nome;
+                        ?>    
+                        </p>
                     </div>
                     
+                    <div class="form-group">
+                        <label for="certificadoNome" class="bold-label">Documento:</label>
+                        <p id="certificadoNome">
+                        <?php 
+                            echo $row_certificado->titulo;
+                        ?>
+                        </p>
+                    </div>
                     
+                    <div class="form-group">
+                        <label for="certificadoHoras" class="bold-label">Quantas horas equivale:</label>
+                        <p id="certificadoHoras">
+                        <?php 
+                            echo $row_certificado->horas . " horas";
+                        ?>    
+                        </p>
+                    </div>
+                    
+                    <!-- <div class="form-group">
+                        <label for="certificadoStatus" class="bold-label">Status Atual do Certificado:</label>
+                        <p id="certificadoStatus">Aprovado</p>
+                    </div> -->
+                    
+                    <div class="form-group">
+                        <label for="idTipodocumentoFK" class="bold-label">Tipo de Documento:</label>
+                        <p id="idTipodocumentoFK">
+                        <?php 
+                            echo $row_certificado->tipo_documento;
+                        ?>  
+                        </p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="moduloNome" class="bold-label">Módulo:</label>
+                        <p id="moduloNome">
+                        <?php 
+                            echo $row_certificado->nome_modulo;
+                        ?>  
+                        </p>
+                    </div>
+                    <div class="div-alter-certificate">
+                        <div class="div-button">
+                            <form action="database/aprovar_certificate.php" method="POST">
+                                <input type="hidden" name="certificado" value="<?php echo $_GET['certificado']; ?>">
+
+                                <input type="submit" class="btn-approve" value="Aprovar">
+                            </form>
+
+                            <button type="submit" class="btn-reject" onclick="ShowDivObservacao()">Reprovar</button>
+                        </div>
+                    
+                        <div class="div-add-observacao">
+                            <form action="database/reprovar_certificate.php" method="POST">
+                                <input type="hidden" name="certificado" value="<?php echo $_GET['certificado']; ?>">
+                                
+                                <div class="class-obs">
+                                    <label for="obs" class="bold-label">
+                                        Observação:
+                                    </label>
+                                    
+                                    <textarea name="observacao" class="form-control" style="width: 300px; height: 200px;" placeholder="Digite o motivo da causa do reprovamento do documento."></textarea>
+                                </div>
+
+                                <div class="class-btn">
+                                    <input type="submit" class="btn-enviar" value="Enviar">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="info-modulos">
                     <h2>Módulos</h2>
                     <div class="dados-modulos">
@@ -150,10 +205,11 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
+
+    
     <script src="dist/js/analisar certificado.js"></script>
 </body>
 </html>
