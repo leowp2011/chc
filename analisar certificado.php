@@ -56,7 +56,7 @@ require_once 'classes/class_certificado.php';
             
             $certificado = new Certificado();
 
-            $row_certificado = $certificado->ListOneCertificate($_GET['certificado']);
+            $row_certificado = $certificado->getCertificate($_GET['certificado']);
             
             ?>
 

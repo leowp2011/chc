@@ -16,15 +16,8 @@ class Certificado
         $this->conn       = new ConexaoPDO();
         $this->usuario    = new Usuario();
     }
-    
-    // public function __construct(Usuario $usuario, $caminhoDocumento, $tipo) {
-    //     $this->usuario = $usuario;
-    //     $this->nomeUsuario = $usuario->getDados()['nome'];
-    //     $this->caminhoDocumento = $caminhoDocumento;
-    //     $this->tipo = $tipo;
-    // }
 
-    public function ListarAllCertificado($filtro_valor)
+    public function ListarAllCertificado($atributo, $conteudo)
     {
         // Prepara a consulta SQL
         $SQL_certificado = "SELECT * FROM certificado as CER 
@@ -35,10 +28,11 @@ class Certificado
                     INNER JOIN modulo as M 
                         ON (TD.id_moduloFK = M.id_modulo)
                     WHERE 
-                        CER.status LIKE :filtro";
+                        CER.:atributo LIKE :conteudo";
     
         $result_certificado = $this->conn->getConexao() -> prepare($SQL_certificado);
-        $result_certificado->bindParam(':filtro', $filtro_valor, PDO::PARAM_STR);
+        $result_certificado->bindParam(':atributo', $atributo, PDO::PARAM_STR);
+        $result_certificado->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
         $result_certificado->execute();
 
         while ($row = $result_certificado->fetch(PDO::FETCH_OBJ)) {
@@ -63,7 +57,7 @@ class Certificado
         }
     }
 
-    public function ListOneCertificate($id_certificado)
+    public function getCertificate($id_certificado)
     {
         $SQL_listcertificate = "SELECT 
                 CER.*, 

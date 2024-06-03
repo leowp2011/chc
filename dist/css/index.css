@@ -101,7 +101,6 @@ body {
 
 .top-content,
 .bottom-content {
-    background-color: #f4f4f4;
     padding: 10px;
     margin-bottom: 1rem;
     border-radius: 5px;
@@ -210,8 +209,6 @@ form.example::after {
     font-family: Arial;
     text-align: center;
     /* height: 35px; */
-    
-    
 }
 
 .custom-select ul{
@@ -277,11 +274,81 @@ form.example::after {
 }
 
 .filter-container {
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    padding: 5px;
+    padding: 20px;
+    border: 1px solid #919191;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.filter-container > p {
+    font-size: 16px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.filter-container select {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #919191;
+    border-radius: 5px;
+    width: 200px;
+    height: 36px;
+    background-color: #f0f0f0;
+}
+
+.filter-container > select option {
+    color: #333333;
+}
+
+.filter-container > form {
+    display: flex;
+    align-items: center;
+}
+
+.filter-container > form input[type="text"] {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    border: 1px solid #919191;
+    border-radius: 5px;
+    width: 200px;
+    height: 36px;
+    margin-left: 20px;
+
+}
+
+.filter-container > form button[type="submit"] {
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    background-color: #244ca4;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    width: 100px;
+    height: 36px;
+    margin-left: 10px;
+}
+
+.filter-container > form button[type="submit"]:hover {
+    background-color: #000000;
+}
+
+.flex-container {
+    display: flex; /* Make the container a flexbox */
+    justify-content: center; /* Align content to the right */
+  }
+
+  .example p{
+    font-weight: bold;
+    margin-left: 25px;
+  }
+
+  .filter-container a {
+    padding-top: 9px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
 
 .bottom-content{
     display: flex;
