@@ -17,8 +17,9 @@ class Certificado
         $this->usuario    = new Usuario();
     }
 
-    public function ListarAllCertificado($atributo, $conteudo)
+    public function ListarAllCertificado($table, $atributo, $conteudo)
     {
+        
         // Prepara a consulta SQL
         $SQL_certificado = "SELECT * FROM certificado as CER 
                     INNER JOIN usuario as USER 
@@ -27,11 +28,10 @@ class Certificado
                         ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
                     INNER JOIN modulo as M 
                         ON (TD.id_moduloFK = M.id_modulo)
-                    WHERE 
-                        CER.:atributo LIKE :conteudo";
-    
+                    WHERE ".
+                        $table.".$atributo LIKE :conteudo";
+                        
         $result_certificado = $this->conn->getConexao() -> prepare($SQL_certificado);
-        $result_certificado->bindParam(':atributo', $atributo, PDO::PARAM_STR);
         $result_certificado->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
         $result_certificado->execute();
 

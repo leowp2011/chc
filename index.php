@@ -98,7 +98,8 @@ $login->VerificarLogin();
                 <select id="selectDependente" disabled style="display: none">
                     <option value=""></option>
                 </select>
-                <form class="example" action="action_page.php">
+
+                <form class="example" action="search.php" method="POST">
                     <input type="text" placeholder="Pesquisar" name="search">
                     <button type="submit"><i class="fa fa-search"></i></button>
                 </form>
@@ -110,7 +111,7 @@ $login->VerificarLogin();
             <?php
             
             $certificado        = new Certificado();
-            $listaCertificados  = $certificado->ListarAllCertificado('pendente');
+            $listaCertificados  = $certificado->ListarAllCertificado('CER', 'status','pendente');
 
             ?>
         </div>
