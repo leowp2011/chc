@@ -30,29 +30,42 @@ class Usuario
 
     public function getDados($id_usuario)
     {
-        $SQL_user = "SELECT * FROM usuario 
-        WHERE id_usuario = :id_usuario";
-    
-        $result_user = $this->conn->getConexao()->prepare($SQL_user);
-        $result_user->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
-        $result_user->execute();
-    
-        return $result_user -> fetch(PDO::FETCH_OBJ);
+        try 
+        {
+            $SQL_user = "SELECT * FROM usuario 
+            WHERE id_usuario = :id_usuario";
+            
+            $result_user = $this->conn->getConexao()->prepare($SQL_user);
+            $result_user->bindParam(':id_usuario', $id_usuario, PDO::PARAM_INT);
+            $result_user->execute();
+        
+            return $result_user -> fetch(PDO::FETCH_OBJ);
+            
+        }
+        catch(PDOException $err) {
+            die("Erro de conexao com o banco de dados!" . $err -> getMessage());
+        }
     }
     
     public function getDadosLogin($ra, $password) 
     {
-        // Prepara a consulta SQL
-        $SQL_user = "SELECT id_usuario, nome, ra, tipo
-                FROM usuario 
-                    WHERE ra = :ra AND senha = :password 
-                LIMIT 1";
-    
-        $result_user = $this->conn->getConexao()->prepare($SQL_user);
-        $result_user->bindParam(':ra', $ra, PDO::PARAM_INT);
-        $result_user->bindParam(':password', $password, PDO::PARAM_STR);
-        $result_user->execute();
-    
-        return $result_user -> fetch(PDO::FETCH_OBJ);
+        try 
+        {
+            // Prepara a consulta SQL
+            $SQL_user = "SELECT id_usuario, nome, ra, tipo
+                    FROM usuario 
+                        WHERE ra = :ra AND senha = :password 
+                    LIMIT 1";
+        
+            $result_user = $this->conn->getConexao()->prepare($SQL_user);
+            $result_user->bindParam(':ra', $ra, PDO::PARAM_INT);
+            $result_user->bindParam(':password', $password, PDO::PARAM_STR);
+            $result_user->execute();
+        
+            return $result_user -> fetch(PDO::FETCH_OBJ);
+        }
+        catch(PDOException $err) {
+            die("Erro de conexao com o banco de dados!" . $err -> getMessage());
+        }
     }
 }

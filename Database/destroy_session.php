@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
         // Destruir a sessão
         Session::Destroy();
 
-        echo "Sessão destruída com sucesso!";
+        // echo "Sessão destruída com sucesso!";
     } else {
         echo "Ação inválida.";
     }

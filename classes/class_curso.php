@@ -3,13 +3,12 @@
 class Curso {
     private $ID_curso;
     private $nome;
-    //private $ra;
+    private $conn;
 
     // Construtor da classe
-    public function __construct($ID_curso, $nome) {
-        $this -> ID_curso = $ID_curso;
-        $this -> nome   = $nome;
-        //$this -> tipo = $tipo;
+    public function __construct() 
+    {
+        $this->conn     = new ConexaoPDO();
     }
 
     public function getNome() {
