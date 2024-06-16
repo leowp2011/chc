@@ -95,7 +95,7 @@ document.addEventListener("click", closeAllSelect);
 
 /**SCRIPT QUE MOSTRA OS SELECTS PARA FILTRAR BUSCA */
 const selectPrincipal = document.getElementById('selectPrincipal');
-const selectDependente = document.getElementById('selectDependente');
+const selectDependente = document.getElementById('selectSecundario');
 
 function carregarOpcoesDependentes(valorSelecionado) {
   // Limpar opções anteriores
@@ -113,7 +113,8 @@ function carregarOpcoesDependentes(valorSelecionado) {
   } else if (valorSelecionado === 'modulo') {
     // Implement logic to populate options for colors (e.g., red, blue, green)
     const modulos = ['Módulo I', 'Módulo II', 'Módulo III', 'Módulo IV']; // Example color options
-    for (const modulo of modulos) {
+    for (const modulo of modulos) 
+      {
       const option = document.createElement('option');
       option.value = modulo;
       option.textContent = modulo;
