@@ -18,16 +18,34 @@ class Usuario
         $this->conn = new ConexaoPDO();
     }
 
+    public function setId_usuario($id_usuario) {
+        $this->id_usuario = $id_usuario;
+    }
     
-    public function setDados($nome, $sobrenome, $ra, $password, $tipo)
-    {
-        $this->nome         = $nome;
-        $this->sobrenome    = $sobrenome;
-        $this->ra           = $ra;
-        $this->password     = $password;
-        $this->tipo         = $tipo;
+    public function setNome($nome) {
+        $this->nome = $nome;
+    }
+    
+    public function getNome() {
+        return $this->nome;
     }
 
+    public function setSobrenome($sobrenome) {
+        $this->sobrenome = $sobrenome;
+    }
+
+    public function setRa($ra) {
+        $this->ra = $ra;
+    }
+
+    public function setPassword($password) {
+        $this->password = $password;
+    }
+
+    public function setTipo($tipo) {
+        $this->tipo = $tipo;
+    }
+    
     public function getDados($id_usuario)
     {
         try 
@@ -41,28 +59,6 @@ class Usuario
         
             return $result_user -> fetch(PDO::FETCH_OBJ);
             
-        }
-        catch(PDOException $err) {
-            die("Erro de conexao com o banco de dados!" . $err -> getMessage());
-        }
-    }
-    
-    public function getDadosLogin($ra, $password) 
-    {
-        try 
-        {
-            // Prepara a consulta SQL
-            $SQL_user = "SELECT id_usuario, nome, ra, tipo
-                    FROM usuario 
-                        WHERE ra = :ra AND senha = :password 
-                    LIMIT 1";
-        
-            $result_user = $this->conn->getConexao()->prepare($SQL_user);
-            $result_user->bindParam(':ra', $ra, PDO::PARAM_INT);
-            $result_user->bindParam(':password', $password, PDO::PARAM_STR);
-            $result_user->execute();
-        
-            return $result_user -> fetch(PDO::FETCH_OBJ);
         }
         catch(PDOException $err) {
             die("Erro de conexao com o banco de dados!" . $err -> getMessage());

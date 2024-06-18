@@ -19,22 +19,36 @@ class Login
 		$this->conn 	= new ConexaoPDO();
 		$this->usuario 	= new Usuario();
 	}
-	public function Autenticar($ra, $password) 
+	public function AutenticarLogin($ra, $password) 
 	{
-		$obj_sql = $this->usuario->getDadosLogin($ra, $password);
-		
 		try 
-		{
-            // Verifica se há resultados
-            if ($obj_sql <> NULL) 
-                return $obj_sql; // Credenciais válidas
-            else 
-                return false; // Credenciais inválidas
-            
-        } catch(PDOException $e) {
-            echo "Erro: " . $e->getMessage();
+        {
+            // Prepara a consulta SQL
+            $SELECT_dados_login = "SELECT id_usuario, nome, sobrenome, ra, tipo
+                    FROM 
+						usuario 
+                    WHERE 
+						ra = :ra 
+					AND 
+						senha = :password 
+                    LIMIT 1";
+        
+            $result_user = $this->conn->getConexao()->prepare($SELECT_dados_login);
+            $result_user->bindParam(':ra', $ra, PDO::PARAM_INT);
+            $result_user->bindParam(':password', $password, PDO::PARAM_STR);
+            $result_user->execute();
+        
+			$OBJ_login = $result_user->fetch(PDO::FETCH_OBJ);
+
+			if (is_null($OBJ_login) || empty($OBJ_login))
+				echo "Nenhum resultado encontrado na base de dados.";
+			else 
+				return $OBJ_login;
+
         }
-		
+        catch(PDOException $err) {
+            die("Erro ao buscar dados no banco de dados!" . $err -> getMessage());
+        }
 	}
 	
 	public  function VerificarLogin() {

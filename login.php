@@ -30,22 +30,26 @@
 				
 				<div class="input-form">
 					<input type="number" name="ra" class="input-RA" onfocus="event_focus(this.name)" onblur="verificaInput(this.name)" autocomplete="off" minlength="6" maxlength="6"
-					value="<?php //echo $_SESSION['ra_error'];?>"> 
+					value="<?php if (isset($_SESSION['ra_error'])) 
+					echo $_SESSION['ra_error'];?>"> 
 
 					<label class="label label-RA">RA</label> 
-					
-					
-					<div id="invalid-RA"> <small> O RA é obrigatório. </small> </div>
+					<div id="invalid-RA"> 
+						<small> O RA é obrigatório. </small> 
+					</div>
 				</div>	
 
 				<div class="input-form">
 					<input type="password" name="senha" class="input-senha" minlength="4" onfocus="event_focus(this.name)" onblur="verificaInput(this.name)" maxlength="8" 
-					value="<?php //echo $_SESSION['senha_error']; ?>">
+					value="<?php if (isset($_SESSION['ra_error'])) 
+					echo $_SESSION['senha_error'];?>">
+
 					<label class="label label-senha">Senha</label>
 
 					<div class="submit-eye"><i class="fas fa-eye"></i></div>
-
-					<div id="invalid-senha"> <small> A senha é obrigatório. </small> </div>
+					<div id="invalid-senha"> 
+						<small> A senha é obrigatório. </small> 
+					</div>
 				</div>
 
 				<div class="div-button">

@@ -1,21 +1,65 @@
 <?php
+require_once 'class_conexao.php';
 require_once 'class_usuario.php';
 
 class Certificado
 {
     private $id_certificado;
-    private $nome;
+    private $titulo;
     private $caminho;
     private $status;
+    private $tipodocumento;
     private $horas;
+    private $usuario;
 
     private $conn;
-    private $usuario;
     
     public function __construct() 
     {
         $this->conn       = new ConexaoPDO();
         $this->usuario    = new Usuario();
+    }
+
+    public function setTitulo($titulo) {
+        $this->titulo = $titulo;
+    }
+    
+    public function setCaminho($caminho) {
+        $this->caminho = $caminho;
+    }
+    
+    public function setStatus($status) {
+        $this->status = $status;
+    }
+
+    public function setTipoDocumento($tipodocumento) {
+        $this->tipodocumento = $tipodocumento;
+    }
+
+    public function setHoras($horas) {
+        $this->horas = $horas;
+    }
+
+    public function Insert_Database()
+    {
+        echo $this->titulo;
+        // try 
+        // {
+        //     // Prepara a consulta SQL
+        //     $INSERT_certificado = "INSERT INTO table_name
+        //                     ()
+        //                 VALUES 
+        //                     (value1, value2, value3, ...)";
+                            
+        //     $result = $this->conn->getConexao() -> prepare($INSERT_certificado);
+        //     $result->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
+        //     $result->execute();
+
+        //     return $result->fetchAll(PDO::FETCH_OBJ);
+        // }
+        // catch(PDOException $err) {
+        //     die("Erro ao listar certificado do aluno!" . $err -> getMessage());
+        // }
     }
 
     public function ListarAllCertificado($table, $atributo, $conteudo)
