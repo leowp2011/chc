@@ -8,14 +8,24 @@ document.getElementById('selectModulo').addEventListener('change', function()
     containerTipoDocs.forEach(function(container) {
         container.classList.add('hidden');
     });
+    containerTipoDocs.forEach(function(select) {
+        select.setAttribute('disabled', 'disabled');
+    });
 
     // Mostra o container secundário apropriado
-    if (value) {
-        document.getElementById('containerTipoDoc' + value.slice(-1)).classList.remove('hidden');
+    if (value) 
+    {
+        var containerTipoDoc = 'containerTipoDoc' + value.slice(-1);
+        var selectTipoDoc = 'selecTipoDoc' + value.slice(-1);
+        document.getElementById(containerTipoDoc).classList.remove('hidden');
+        document.getElementById(selectTipoDoc).removeAttribute('disabled');
+
     }
 });
 
-  
+
+
+/** */
 document.getElementById('myfile').addEventListener('change', function(e) 
 {
 const file = e.target.files[0];

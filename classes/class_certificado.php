@@ -4,14 +4,18 @@ require_once 'class_usuario.php';
 
 class Certificado
 {
+    private $table = 'certificado';
     private $id_certificado;
     private $titulo;
     private $caminho;
     private $status;
-    private $tipodocumento;
+    private $id_tipodocumentoFK;
     private $horas;
-    private $usuario;
 
+    private $id_usuarioFK;
+
+
+    private $usuario;
     private $conn;
     
     public function __construct() 
@@ -33,33 +37,44 @@ class Certificado
     }
 
     public function setTipoDocumento($tipodocumento) {
-        $this->tipodocumento = $tipodocumento;
+        $this->id_tipodocumentoFK = $tipodocumento;
     }
 
     public function setHoras($horas) {
         $this->horas = $horas;
     }
 
+    public function setAluno($id_usuario) {
+        $this->id_usuarioFK = $id_usuario;
+    }
+
+
     public function Insert_Database()
     {
-        echo $this->titulo;
-        // try 
-        // {
-        //     // Prepara a consulta SQL
-        //     $INSERT_certificado = "INSERT INTO table_name
-        //                     ()
-        //                 VALUES 
-        //                     (value1, value2, value3, ...)";
-                            
-        //     $result = $this->conn->getConexao() -> prepare($INSERT_certificado);
-        //     $result->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
-        //     $result->execute();
+        try 
+        {
+            $table = $this->table;
 
-        //     return $result->fetchAll(PDO::FETCH_OBJ);
-        // }
-        // catch(PDOException $err) {
-        //     die("Erro ao listar certificado do aluno!" . $err -> getMessage());
-        // }
+            // Prepara a consulta SQL
+            $INSERT_certificado = "INSERT INTO $table
+                            (titulo, caminho, status, horas, id_usuarioFK, id_tipodocumentoFK, observacao)
+                        VALUES 
+                            (:titulo, :caminho, 'pendente', :horas, :id_usuarioFK, :id_tipodocumentoFK, '')";
+                            
+            $result = $this->conn->getConexao() -> prepare($INSERT_certificado);
+            // $result->bindParam(':table', $this->table, PDO::PARAM_STR);
+            $result->bindParam(':titulo', $this->titulo, PDO::PARAM_STR);
+            $result->bindParam(':caminho', $this->caminho, PDO::PARAM_STR);
+            $result->bindParam(':horas', $this->horas, PDO::PARAM_INT);
+            $result->bindParam(':id_usuarioFK', $this->id_usuarioFK, PDO::PARAM_INT);
+            $result->bindParam(':id_tipodocumentoFK', $this->id_tipodocumentoFK, PDO::PARAM_INT);
+
+            return $result->execute();
+
+        }
+        catch(PDOException $err) {
+            die("Erro ao listar certificado do aluno!" . $err -> getMessage());
+        }
     }
 
     public function ListarAllCertificado($table, $atributo, $conteudo)

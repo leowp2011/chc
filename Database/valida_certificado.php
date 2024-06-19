@@ -1,5 +1,8 @@
 <?php
+require_once '../classes/class_session.php';
 require_once '../classes/class_certificado.php';
+
+Session::Start();
 
 $certificado = new Certificado();
 
@@ -25,23 +28,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             // Move o arquivo para o diretório de destino
             // if (move_uploaded_file($fileTmpPath, $dest_path)) 
-            if( isset($_POST['titulo']) AND 
-                isset($_POST['horas'])  AND
-                isset($_POST['tipodocumento']))
-            {
-                
-                // 'modulo'    => $_POST['modulo'];
-                // 'tipo_doc'  => $_POST['tipoDocumento'];
-                // 'horas'     => $_POST['horas'];
+            // if( isset($_POST['titulo']) AND 
+            //     isset($_POST['horas'])  AND
+            //     isset($_POST['tipodocumento']))
+            // {
 
                 $certificado->setTitulo($_POST['titulo']);
+                $certificado->setCaminho($dest_path);
+                $certificado->setHoras($_POST['horas']);
+                $certificado->setTipoDocumento($_POST['tipoDocumento']);
+                $certificado->setAluno($_SESSION['obj_user']->id_usuario);
 
                 $certificado->Insert_Database();
                 
-            } else 
-            {
-                echo "Houve um problema ao mover o arquivo para o diretório de destino.";
-            }
+                header("Location: ../index.php");
+            // } else 
+            // {
+            //     echo "Houve um problema ao mover o arquivo para o diretório de destino.";
+            // }
         } else {
             echo "Tipo de arquivo não permitido.";
         }

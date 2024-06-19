@@ -24,6 +24,7 @@ foreach ($listTipoDoc as $tipoDoc)
     $selecTipoDoc_modulo[$mainOptionKey][$subOptionKey] = $tipoDoc->tipo_documento;
 }
 
+
 ?>
 
 <div id="main-content" class="main-content">
@@ -70,13 +71,13 @@ foreach ($listTipoDoc as $tipoDoc)
                                     <!-- tipodoc -->
                                         <label for="tipoDocumento<?php echo htmlspecialchars(substr($id_modulo, -1)); ?> ">Tipo de Documento:</label>
 
-                                        <select id="selecTipoDoc<?php echo substr($id_modulo, -1); ?>" name="tipoDocumento">
+                                        <select id="selecTipoDoc<?php echo htmlspecialchars(substr($id_modulo, -1)); ?>" name="tipoDocumento" disabled>
                                             <option value="">Selecione o Tipo
                                             de Documento</option>
                                             
                                             <?php foreach ($optionsTipoDoc as $valueTipo => $label): ?>
                                                 <option value="<?php echo $valueTipo; ?>">
-                                                    <?php echo $label; ?>
+                                                    <?php echo $label; ?>   
                                                 </option>
                                             <?php endforeach; ?>
 
