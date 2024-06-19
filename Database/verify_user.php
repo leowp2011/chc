@@ -1,14 +1,6 @@
 <?php
-
-require_once '../classes/class_conexao.php';
-require_once '../classes/class_session.php';
 require_once '../classes/class_login.php';
-
-if (isset($_SESSION['logado'])) 
-{
-	Session::Destroy();
-	exit;
-}
+require_once '../classes/class_usuario.php';
 
 // Verifica se os dados foram enviados via POST
 if ($_SERVER['REQUEST_METHOD'] == "POST") 
@@ -16,23 +8,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST")
 	$ra 		= $_POST['ra'];
     $password 	= md5(md5($_POST['senha']));
 
-	/*CRIA CONEXAO COM O BANCO */
-	$conexao = new ConexaoPDO();
-	$conn = $conexao->getConexao();	
-
-    // Instancia a classe Login
     $login = new Login();
+	$OBJ_user = $login->AutenticarLogin($ra, $password);
 
-	// /*VERIFICA LOGIN NO BANCO */
-	$obj_user = $login->Autenticar($ra, $password);
-
-    // // Chama o método authenticate para verificar as credenciais
-    if ($obj_user <> false) 
+    // Chama o método authenticate para verificar as credenciais
+    if ($OBJ_user <> false) 
 	{
-		Session::Start();
 		
-		// var_dump($obj_user);
-		$_SESSION['obj_user'] 	= $obj_user;
+		$usuario = new Usuario();
+
+		/**SETANDO DADOS DO USUARIO LOGADO */
+		$usuario->setId_usuario($OBJ_user->id_usuario);
+		$usuario->setNome($OBJ_user->nome);
+		$usuario->setSobrenome($OBJ_user->sobrenome);
+		$usuario->setRa($OBJ_user->ra);
+		$usuario->setTipo($OBJ_user->tipo);
+
+
+		$_SESSION['obj_user'] 	= $OBJ_user;
 		$_SESSION['logado'] 	= true;
 
 		header("Location: ../index.php");

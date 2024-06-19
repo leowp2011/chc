@@ -1,3 +1,11 @@
+<?php
+require_once 'classes/class_login.php';
+require_once 'classes/class_usuario.php';
+
+$login      = new Login();
+
+$login->VerificarLogin();?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,9 +29,11 @@
 <div class="top-bar">
     <img src="https://home.unicruz.edu.br/wp-content/uploads/2022/04/logo-horizontal-PNG.png" alt="Logo" class="top-logo">
     <div class="top-bar-buttons">
-        <button class="top-button"><i class="fas fa-dollar-sign fa-lg"></i><br>Financeiro</button>
-        <button class="top-button"><i class="fas fa-user-graduate fa-lg"></i><br>Matrícula Online</button>
-        <button class="top-button btn-user"><i class="fas fa-user fa-lg"></i><br>Central do Aluno</button>
+        <button class="top-button"><i class="fas fa-dollar-sign fa-lg" style="padding-bottom: 4px;"></i><br>Financeiro</button>
+        <button class="top-button"><i class="fas fa-user-graduate fa-lg" style="padding-bottom: 4px;"></i><br>Matrícula Online</button>
+        <button class="top-button btn-user"><i class="fas fa-user fa-lg" style="padding-bottom: 4px;"></i><br>
+            <?php ECHO $_SESSION['obj_user']->nome;?>
+        </button>
     </div>
 </div>
 

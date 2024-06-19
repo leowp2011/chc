@@ -1,16 +1,7 @@
 <?php
 include 'includes/header.php';
 
-require_once 'classes/class_login.php';
-// require_once 'classes/class_usuario.php';
 require_once 'classes/class_certificado.php';
-
-
-$login = new Login();
-$login->VerificarLogin();
-
-
-$usuario = new Usuario();
 
 if ($_SESSION['obj_user']->id_usuario == 'professor')
 {

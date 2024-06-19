@@ -109,7 +109,7 @@ body {
 
 .top-content, .bottom-content {
     flex-grow: 1;
-}
+}   
 
 .top-content h2 {
     margin-bottom: 15px;
