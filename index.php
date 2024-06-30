@@ -75,6 +75,7 @@ else if ($_SESSION['obj_user']->tipo == 'aluno')
         </div>
         <hr>
 
+        
         <a href="incluir_certificado.php" class="btn"> <i class="fa-solid fa-plus"></i> Incluir certificado</a>    
 
         <div class="bottom-content" id="certificadosContainer">
