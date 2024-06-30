@@ -62,11 +62,6 @@ hr {
     font-size: 20px;
 }
 
-.form-group{
-    padding: 12px;
-    margin-bottom: 8px;
-}
-
 .documento p{
     padding-top: 6px;
 }
@@ -164,7 +159,7 @@ hr {
 
 input[type=text] {
     width: 100%;
-    padding: 15px;
+    padding: 5px;
     margin: 5px 0 22px 0;
     display: inline-block;
     border: solid 1px #000000;
@@ -189,12 +184,21 @@ input[type=text] {
 }
 
 .option-modulo select {
-    width: 100%; /* Make the select element fill the container */
-    padding: 10px; /* Add padding for spacing */
+    width: 100%;  
+    padding: 5px;
     margin-top: 8px; /* Add margin to separate from other elements */
     border: 1px solid #000000; /* Add border for visual separation */
     border-radius: 5px; /* Add border radius for rounded corners */
     background-color: #ffffff; /* White background */
+}
+
+#certificadoHoras {
+    width: 100px; /* Make the select element fill the container */
+    padding: 5px; /* Add padding for spacing */
+    margin-top: 8px; /* Add margin to separate from other elements */
+    border: 1px solid #000000; /* Add border for visual separation */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    background-color: #ffffff;
 }
 
 .option-modulo select:focus {
@@ -216,9 +220,9 @@ label[for="myfile"] {
 .tipo-documento select {
     max-width: 600px;
     width: 100%;
-  }
+}
   
-  .tipo-documento label {
+.tipo-documento label {
     font-weight: bold; /* Make the label text bold */
     padding-top: 20px;
     display: block;
@@ -226,7 +230,7 @@ label[for="myfile"] {
 
 .tipo-documento select {
     width: 100%; /* Make the select element fill the container */
-    padding: 10px; /* Add padding for spacing */
+    padding: 5px; /* Add padding for spacing */
     margin-top: 8px; /* Add margin to separate from other elements */
     border: 1px solid #000000; /* Add border for visual separation */
     border-radius: 5px; /* Add border radius for rounded corners */

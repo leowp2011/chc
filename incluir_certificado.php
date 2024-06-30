@@ -27,6 +27,9 @@ foreach ($listTipoDoc as $tipoDoc)
 
 ?>
 
+<link rel="stylesheet" href="dist/css/incluir_certificado.css">
+
+
 <div id="main-content" class="main-content">
     <div class="bottom-content" id="certificadosContainer" style="padding-top: 0;">
     <div class="split-container">
@@ -35,7 +38,7 @@ foreach ($listTipoDoc as $tipoDoc)
             <div class="pdf-managing-container">
                 <div class="pdf-managing">
                     <div class="entrada-dados">
-                        <form action="database/valida_certificado.php" method="POST" id="certificadoForm" enctype="multipart/form-data">
+                        <form action="database/valida_insert.php" method="POST" id="certificadoForm" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="myfile">Selecione o Certificado em PDF:</label>
 
@@ -110,6 +113,9 @@ foreach ($listTipoDoc as $tipoDoc)
     </div>
     </div>
 </div>
+
+
+<script src="dist/js/incluir_certificado.js"></script>
 
 <?php 
 include 'includes/footer.php';

@@ -4,7 +4,7 @@ class ConexaoPDO {
     private $host = '127.0.0.1';
     private $username = 'root';
     private $password = '';
-    private $dbname = 'horas_complementares';
+    private $dbname = 'horas_complementares2';
     private $conexao;
 
     public function __construct() {

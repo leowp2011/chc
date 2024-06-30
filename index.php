@@ -3,7 +3,7 @@ include 'includes/header.php';
 
 require_once 'classes/class_certificado.php';
 
-if ($_SESSION['obj_user']->id_usuario == 'professor')
+if ($_SESSION['obj_user']->tipo == 'professor')
 {
 ?>
     <div id="main-content" class="main-content">
@@ -37,6 +37,7 @@ if ($_SESSION['obj_user']->id_usuario == 'professor')
             $certificado        = new Certificado();
             $listaCertificados  = $certificado->ListarAllCertificado('CER', 'status','pendente');
 
+            echo $certificado->gerarHtmlCertificados($listaCertificados, $_SESSION['obj_user']->tipo);  
             ?>
         </div>
     </div>
@@ -74,13 +75,13 @@ else if ($_SESSION['obj_user']->tipo == 'aluno')
         </div>
         <hr>
 
-        <a href="incluir_certificado.php" class="btn">Incluir certificado</a>    
+        <a href="incluir_certificado.php" class="btn"> <i class="fa-solid fa-plus"></i> Incluir certificado</a>    
 
         <div class="bottom-content" id="certificadosContainer">
             <?php
 
             $certificado        = new Certificado();
-            $listaCertificados  = $certificado->ListAllCertificateAluno('CER', 'status','reprovado');
+            $listaCertificados  = $certificado->ListAllCertificateAluno('CER', 'status','todos', $_SESSION['obj_user']->id_usuario);
 
             echo $certificado->gerarHtmlCertificados($listaCertificados, $_SESSION['obj_user']->tipo);    
             
