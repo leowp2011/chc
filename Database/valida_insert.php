@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 $certificado->setTipoDocumento($_POST['tipoDocumento']);
                 $certificado->setAluno($_SESSION['obj_user']->id_usuario);
 
-                $certificado->Insert_Database();
+                $certificado->InsertCertificate();
                 
                 header("Location: ../index.php");
             // } else 

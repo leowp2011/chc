@@ -360,6 +360,7 @@ form.example::after {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 15px;
 }
 
 .card {
@@ -368,7 +369,7 @@ form.example::after {
     border-radius: 10px;
     background: linear-gradient(170deg, rgba(151, 150, 150, 0.623) 0%, rgb(204, 204, 204) 100%);
     position: relative;
-    box-shadow: 0 15px 25px rgba(114, 114, 114, 0.55);
+    box-shadow: 0 15px 25px rgba(114, 114, 114, 0.25);
     cursor: pointer;
     transition: all .3s;
     padding: 15px; /* Add padding to accommodate badge */
@@ -391,12 +392,28 @@ form.example::after {
     justify-content: center;
 }   
 
-.card-badge::before {
+.aprovado::before {
+    content: 'Aprovado';
+    background-image: linear-gradient(45deg, #277020 0%, #3db519 51%, #079734 100%);
+    box-shadow: 0 5px 5px rgb(7, 93, 33);
+}
+
+.pendente::before {
+    content: 'Pendente';
+    background-image: linear-gradient(45deg, #998122 0%, #b39121 51%, #fdd534 100%);
+    box-shadow: 0 5px 5px rgb(161, 109, 30);
+}
+
+.reprovado::before {
     content: 'Reprovado';
+    background-image: linear-gradient(45deg, #fd3434 0%, #d16666 51%, #fd3434 100%);
+    box-shadow: 0 5px 5px rgb(161, 30, 30);
+}
+
+.card-badge::before {
     position: absolute;
     width: 160%; /* Adjust width if needed */
     height: 30px;
-    background-image: linear-gradient(45deg, #fd3434 0%, #d16666 51%, #fd3434 100%);
     transform: rotate(45deg) translateY(-20px);
     display: flex;
     align-items: center;
@@ -405,7 +422,6 @@ form.example::after {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    box-shadow: 0 5px 5px rgb(161, 30, 30);
     font-size: 10px;
 }
 

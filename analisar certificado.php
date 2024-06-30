@@ -135,7 +135,7 @@ require_once 'classes/class_certificado.php';
                                         Observação:
                                     </label>
                                     
-                                    <textarea name="observacao" class="form-control" style="width: 300px; height: 200px;" placeholder="Digite o motivo da causa do reprovamento do documento."></textarea>
+                                    <textarea name="observacao" class="form-control" style="width: 300px; height: 200px;" placeholder="Digite o motivo da causa do reprovamento do documento." required></textarea>
                                 </div>
 
                                 <div class="class-btn">
@@ -210,6 +210,6 @@ require_once 'classes/class_certificado.php';
     </div>
 
     
-    <script src="dist/js/analisar certificado.js"></script>
+<script src="dist/js/analisar certificado.js"></script>
 </body>
 </html>

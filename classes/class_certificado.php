@@ -24,8 +24,20 @@ class Certificado
         $this->usuario    = new Usuario();
     }
 
+    public function getIdCertificado() {
+        return $this->id_certificado;
+    }
+
+    public function setIdCertificado($id_certificado) {
+        $this->id_certificado = $id_certificado;
+    }
+
     public function setTitulo($titulo) {
         $this->titulo = $titulo;
+    }
+
+    public function getTitulo() {
+        return $this->titulo;
     }
     
     public function setCaminho($caminho) {
@@ -48,8 +60,31 @@ class Certificado
         $this->id_usuarioFK = $id_usuario;
     }
 
+    public function getCertificate($id_certificado)
+    {
+        $SQL_listcertificate = "SELECT 
+                CER.*, 
+                USER.nome, USER.sobrenome, USER.tipo,
+                TD.*,
+                M.* 
+                    FROM certificado as CER 
+                INNER JOIN usuario as USER 
+                    ON (CER.id_usuarioFK = USER.id_usuario)
+                INNER JOIN tipodocumento as TD 
+                    ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
+                INNER JOIN modulo as M 
+                    ON (TD.id_moduloFK = M.id_modulo)
+                WHERE 
+                    CER.id_certificado = :id_certificado";
 
-    public function Insert_Database()
+        $result = $this->conn->getConexao() -> prepare($SQL_listcertificate);
+        $result->bindParam(':id_certificado', $id_certificado, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function InsertCertificate()
     {
         try 
         {
@@ -77,52 +112,44 @@ class Certificado
         }
     }
 
+    public function UpdateCertificate()
+    {
+        try 
+        {
+            $table = $this->table;
+
+            // echo "tipo doc no metodo = " . $this->id_tipodocumentoFK;
+            // Prepara a consulta SQL
+            $UPDATE_certificado = "UPDATE $table
+                        SET 
+                            titulo              = :titulo,
+                            -- caminho             = :caminho,
+                            horas               = :horas,  
+                            id_tipodocumentoFK  = :id_tipodocumentoFK
+                        WHERE 
+                            id_certificado = :id_certificado";
+
+            $result = $this->conn->getConexao() -> prepare($UPDATE_certificado);
+            $result->bindParam(':titulo', $this->titulo, PDO::PARAM_STR);
+            // $result->bindParam(':caminho', $this->caminho, PDO::PARAM_STR);
+            $result->bindParam(':horas', $this->horas, PDO::PARAM_INT);
+            $result->bindParam(':id_tipodocumentoFK', $this->id_tipodocumentoFK, PDO::PARAM_INT);
+            $result->bindParam(':id_certificado', $this->id_certificado, PDO::PARAM_INT);
+            
+            return $result->execute();
+
+        }
+        catch(PDOException $err) {
+            die("Erro ao atulizar dados do certificado do aluno!" . $err -> getMessage());
+        }
+    }
+    
+    
     public function ListarAllCertificado($table, $atributo, $conteudo)
     {
         
         // Prepara a consulta SQL
-        $SQL_certificado = "SELECT * FROM certificado as CER 
-                    INNER JOIN usuario as USER 
-                        ON (CER.id_usuarioFK = USER.id_usuario)
-                    INNER JOIN tipodocumento as TD 
-                        ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
-                    INNER JOIN modulo as M 
-                        ON (TD.id_moduloFK = M.id_modulo)
-                    WHERE ".
-                        $table.".$atributo LIKE :conteudo";
-                        
-        $result_certificado = $this->conn->getConexao() -> prepare($SQL_certificado);
-        $result_certificado->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
-        $result_certificado->execute();
-
-        while ($row = $result_certificado->fetch(PDO::FETCH_OBJ)) {
-
-            echo '
-                <div class="cardlist">    
-                    <div class="card">
-                        <h5 class="card-name">' . 
-                        htmlspecialchars($row->nome) 
-                        .'</h5>
-                        <div class="card-body">
-                            <h5 class="card-title">' .
-                            htmlspecialchars($row->titulo)    
-                            . '</h5>
-                            <p class="card-module">' .
-                            htmlspecialchars($row->nome_modulo)
-                            . '</p>
-                            <a href="analisar certificado.php?certificado='. htmlspecialchars($row->id_certificado) .'" class="btn btn-primary">Gerenciar Certificado </a>
-                        </div>
-                    </div>
-                </div>';
-        }
-    }
-
-    public function ListAllCertificateAluno($table, $atributo, $conteudo)
-    {
-        try 
-        {
-            // Prepara a consulta SQL
-            $SQL_cert_aluno = "SELECT * FROM certificado as CER  
+        $SQL_certificado = "SELECT * FROM certificado as CER  
                         INNER JOIN usuario as USER   
                             ON (CER.id_usuarioFK = USER.id_usuario)
 
@@ -139,10 +166,69 @@ class Certificado
                             ON (TD.id_moduloFK = M.id_modulo)
                         
                         WHERE ".
-                            $table.".$atributo LIKE :conteudo";                              
-                            
-            $result = $this->conn->getConexao() -> prepare($SQL_cert_aluno);
-            $result->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
+                            $table.".$atributo LIKE :conteudo";
+                        
+        $result_certificado = $this->conn->getConexao() -> prepare($SQL_certificado);
+        $result_certificado->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
+        $result_certificado->execute();
+
+        return $result_certificado->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public function ListAllCertificateAluno($table, $atributo, $conteudo, $id_usuario)
+    {
+        try 
+        {
+            if ($conteudo <> 'todos')
+            {
+                $SELECT_cert_aluno = 
+                    "SELECT * FROM 
+                        certificado as CER  
+                    INNER JOIN usuario as USER   
+                        ON (CER.id_usuarioFK = USER.id_usuario)
+
+                    INNER JOIN usuario_curso as UC 
+                        ON (UC.id_usuarioFK = USER.id_usuario)  
+
+                    INNER JOIN curso as C 
+                        ON (UC.id_cursoFK = C.id_curso)
+
+                    INNER JOIN tipodocumento as TD 
+                        ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
+
+                    INNER JOIN modulo as M 
+                        ON (TD.id_moduloFK = M.id_modulo)
+                    
+                    WHERE ".
+                        $table.".$atributo LIKE :conteudo
+                    AND 
+                        USER.id_usuario =" . $id_usuario;                              
+            }                
+            else {
+                $SELECT_cert_aluno = 
+                    "SELECT * FROM 
+                        certificado as CER  
+
+                    INNER JOIN usuario as USER   
+                        ON (CER.id_usuarioFK = USER.id_usuario)
+
+                    INNER JOIN usuario_curso as UC 
+                        ON (UC.id_usuarioFK = USER.id_usuario)  
+
+                    INNER JOIN curso as C 
+                        ON (UC.id_cursoFK = C.id_curso)
+
+                    INNER JOIN tipodocumento as TD 
+                        ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
+
+                    INNER JOIN modulo as M 
+                        ON (TD.id_moduloFK = M.id_modulo)
+                    
+                    WHERE 
+                        USER.id_usuario =" . $id_usuario;   
+            }
+            
+            $result = $this->conn->getConexao() -> prepare($SELECT_cert_aluno);
             $result->execute();
 
             return $result->fetchAll(PDO::FETCH_OBJ);
@@ -159,13 +245,26 @@ class Certificado
         {
             $html .= '<div class="cardlist">';
             $html .= '<div class="card">';
-            $html .= '<span class="card-badge premium"></span>';     
+
+            if ($cert->status == 'aprovado')
+            {
+                $html .= '<span class="card-badge aprovado"></span>';
+            }
+            elseif ($cert->status == 'pendente')
+            {
+                $html .= '<span class="card-badge pendente"></span>';
+            }    
+            else
+            {
+                $html .= '<span class="card-badge reprovado"></span>';     
+            }    
+
             $html .= '<h4 class="card-name">'; 
             $html .= htmlspecialchars($cert->nome);
             $html .= '</h4>';
             $html .= '<h5 class="card-curso">';
             $html .= htmlspecialchars($cert->nome_curso);
-            $html .= '</h5>';
+            $html .= '</h5><br>';
             $html .= '<h5 class="card-title">'; 
             $html .= htmlspecialchars($cert->titulo);
             $html .= '</h5>';
@@ -175,7 +274,8 @@ class Certificado
             
             if ($tipo_user == 'aluno') 
             {
-                $html .= '<a href="analisar certificado-aluno.php?certificado='. htmlspecialchars($cert->id_certificado) .'" class="btn btn-primary">Gerenciar Certificado </a>';
+                if (($cert->status == 'pendente') || ($cert->status == 'reprovado'))
+                    $html .= '<a href="editar_certificado-aluno.php?certificado='. htmlspecialchars($cert->id_certificado) .'" class="btn btn-primary">Editar Certificado </a>';
             
             } else 
             {
@@ -186,30 +286,6 @@ class Certificado
             $html .= '</div>';
         }
         return $html;
-    }
-
-    public function getCertificate($id_certificado)
-    {
-        $SQL_listcertificate = "SELECT 
-                CER.*, 
-                USER.nome, USER.sobrenome,
-                TD.*,
-                M.* 
-                    FROM certificado as CER 
-                INNER JOIN usuario as USER 
-                    ON (CER.id_usuarioFK = USER.id_usuario)
-                INNER JOIN tipodocumento as TD 
-                    ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
-                INNER JOIN modulo as M 
-                    ON (TD.id_moduloFK = M.id_modulo)
-                WHERE 
-                    CER.id_certificado = :id_certificado";
-
-        $result = $this->conn->getConexao() -> prepare($SQL_listcertificate);
-        $result->bindParam(':id_certificado', $id_certificado, PDO::PARAM_INT);
-        $result->execute();
-
-        return $result->fetch(PDO::FETCH_OBJ);
     }
 
     public function AprovarCertificado($id_certificado)

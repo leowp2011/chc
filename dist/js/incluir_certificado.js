@@ -1,3 +1,4 @@
+
 /**MOSTRA O SEGUNDO SELECT COM A LISTA DOS TIPOS DE DOCS */
 document.getElementById('selectModulo').addEventListener('change', function() 
 {
@@ -5,21 +6,25 @@ document.getElementById('selectModulo').addEventListener('change', function()
     var containerTipoDocs = document.querySelectorAll('[id^=containerTipoDoc]');
 
     // Oculta todos os containers secundários
-    containerTipoDocs.forEach(function(container) {
+    containerTipoDocs.forEach(function(container) 
+    {
         container.classList.add('hidden');
     });
-    containerTipoDocs.forEach(function(select) {
-        select.setAttribute('disabled', 'disabled');
-    });
+    
+    containerTipoDocs.forEach(function(container) 
+    {
+        let select = container.querySelector('select')
+        select.disabled = true
+    })
 
     // Mostra o container secundário apropriado
     if (value) 
     {
         var containerTipoDoc = 'containerTipoDoc' + value.slice(-1);
         var selectTipoDoc = 'selecTipoDoc' + value.slice(-1);
+
         document.getElementById(containerTipoDoc).classList.remove('hidden');
         document.getElementById(selectTipoDoc).removeAttribute('disabled');
-
     }
 });
 
