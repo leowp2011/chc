@@ -1,13 +1,15 @@
-
-document.addEventListener('DOMContentLoaded', function() {
-
-    window.submitForm = function() {
+document.addEventListener('DOMContentLoaded', function() 
+{
+    window.submitForm = function() 
+    {
         var form = document.getElementById('certificadoForm');
         var formData = new FormData(form);
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../search.php', true);
-        xhr.onload = function() {
+        xhr.open('POST', 'search.php', true);
+
+        xhr.onload = function() 
+        {
             if (xhr.status >= 200 && xhr.status < 400) {
                 var container = document.getElementById('certificadosContainer');
                 console.log(xhr.responseText); // Adicione esta linha para verificar a resposta

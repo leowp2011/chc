@@ -28,11 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
             endif;
             
         }
-        
-        // echo $_POST['id_certificado'] . "<br>";
-        // echo $_POST['titulo']. "<br>";
-        // echo $_POST['horas']. "<br>";
-        // echo "tipo doc enviado = " . $_POST['tipoDocumento'] . " <br>";
 
         $certificado->setIdCertificado($_POST['id_certificado']);
         $certificado->setTitulo($_POST['titulo']);
