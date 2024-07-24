@@ -94,43 +94,59 @@ document.addEventListener("click", closeAllSelect);
 
 
 /**SCRIPT QUE MOSTRA OS SELECTS PARA FILTRAR BUSCA */
-const selectPrincipal = document.getElementById('selectPrincipal');
-const selectDependente = document.getElementById('selectSecundario');
+const selectPrincipal   = document.getElementById('selectPrincipal');
+const selectDependente  = document.getElementById('selectSecundario');
+const inputText         = document.getElementById('search');
 
 function carregarOpcoesDependentes(valorSelecionado) {
   // Limpar opções anteriores
-  selectDependente.innerHTML = '<option value="todos">Todos</option>';
+  selectDependente.innerHTML = '<option value=""></option>';
 
   // Carregar opções de acordo com o valor selecionado
-  if (valorSelecionado === 'status') {
+  if (valorSelecionado === 'certificado') {
     const status = ['Aprovado', 'Reprovado', 'Pendente'];
-    for (const cert of status) {
+
+    for (const cert of status) 
+      {
       const option = document.createElement('option');
       option.value = cert;
       option.textContent = cert;
       selectDependente.appendChild(option);
     }
-  } else if (valorSelecionado === 'modulo') {
+  } 
+  else if (valorSelecionado === 'modulo') 
+  {
     // Implement logic to populate options for colors (e.g., red, blue, green)
-    const modulos = ['Módulo I', 'Módulo II', 'Módulo III', 'Módulo IV']; // Example color options
-    for (const modulo of modulos) 
-      {
+    const modulosText = ['Módulo I', 'Módulo II', 'Módulo III', 'Módulo IV'];
+    const modulosValue = ['Modulo I', 'Modulo II', 'Modulo III', 'Modulo IV'];
+
+    for (let i = 0; i < modulosValue.length; i++) {
+        
       const option = document.createElement('option');
-      option.value = modulo;
-      option.textContent = modulo;
+      option.value = modulosValue[i];
+      option.textContent = modulosText[i];
       selectDependente.appendChild(option);
     }
   } 
 
   // Habilitar o segundo select
-  if (valorSelecionado === 'status' || valorSelecionado === 'modulo') {
+  if (valorSelecionado === 'certificado' || valorSelecionado === 'modulo') {
     selectDependente.disabled = false;
     selectDependente.style.display = 'block';
+
+    inputText.disabled = true;
+    inputText.style.display = 'none';
+
   } else {
     selectDependente.disabled = true;
     selectDependente.style.display = 'none';
   }
 
+  if (valorSelecionado === 'aluno') 
+    {
+    inputText.disabled = false;
+    inputText.style.display = 'block';
+  }
 }
 
 selectPrincipal.addEventListener('change', function() {

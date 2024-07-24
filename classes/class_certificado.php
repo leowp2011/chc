@@ -144,35 +144,106 @@ class Certificado
         }
     }
     
+    public function ListarAllCertificate()
+    {
+        try 
+        {
+            
+            $SQL_certificado = 
+            "SELECT * FROM 
+                certificado as CER  
+            INNER JOIN usuario as USER   
+                ON (CER.id_usuarioFK = USER.id_usuario)
+
+            INNER JOIN usuario_curso as UC 
+                ON (UC.id_usuarioFK = USER.id_usuario)  
     
+            INNER JOIN curso as C 
+                ON (UC.id_cursoFK = C.id_curso)
+
+            INNER JOIN tipodocumento as TD 
+                ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
+
+            INNER JOIN modulo as M 
+                ON (TD.id_moduloFK = M.id_modulo)
+                
+            ORDER BY M.nome_modulo";
+        
+            $result_certificado = $this->conn->getConexao() -> prepare($SQL_certificado);
+            $result_certificado->execute();
+            
+            return $result_certificado->fetchAll(PDO::FETCH_OBJ);
+        }
+        catch(PDOException $err) {
+            die("Erro ao listar certificado do aluno!" . $err -> getMessage());
+        }
+    }
+
     public function ListarAllCertificado($table, $atributo, $conteudo)
     {
-        
-        // Prepara a consulta SQL
-        $SQL_certificado = "SELECT * FROM certificado as CER  
-                        INNER JOIN usuario as USER   
-                            ON (CER.id_usuarioFK = USER.id_usuario)
+        try 
+        {
+            if ($table <> 'USER')
+            {
+                $SQL_certificado = 
+                    "SELECT * FROM 
+                        certificado as CER  
+                    INNER JOIN usuario as USER   
+                        ON (CER.id_usuarioFK = USER.id_usuario)
 
-                        INNER JOIN usuario_curso as UC 
-                            ON (UC.id_usuarioFK = USER.id_usuario)  
+                    INNER JOIN usuario_curso as UC 
+                        ON (UC.id_usuarioFK = USER.id_usuario)  
+            
+                    INNER JOIN curso as C 
+                        ON (UC.id_cursoFK = C.id_curso)
 
-                        INNER JOIN curso as C 
-                            ON (UC.id_cursoFK = C.id_curso)
+                    INNER JOIN tipodocumento as TD 
+                        ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
 
-                        INNER JOIN tipodocumento as TD 
-                            ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
+                    INNER JOIN modulo as M 
+                        ON (TD.id_moduloFK = M.id_modulo)
+                    
+                    WHERE ".
+                        $table.".$atributo LIKE :conteudo";
+                
+                $result_certificado = $this->conn->getConexao() -> prepare($SQL_certificado);
+                $result_certificado->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
 
-                        INNER JOIN modulo as M 
-                            ON (TD.id_moduloFK = M.id_modulo)
-                        
-                        WHERE ".
-                            $table.".$atributo LIKE :conteudo";
-                        
-        $result_certificado = $this->conn->getConexao() -> prepare($SQL_certificado);
-        $result_certificado->bindParam(':conteudo', $conteudo, PDO::PARAM_STR);
-        $result_certificado->execute();
+                $result_certificado->execute();
+            }
+            else 
+            {
+                $SQL_certificado = 
+                    "SELECT * FROM 
+                        certificado as CER  
+                    INNER JOIN usuario as USER   
+                        ON (CER.id_usuarioFK = USER.id_usuario)
 
-        return $result_certificado->fetchAll(PDO::FETCH_OBJ);
+                    INNER JOIN usuario_curso as UC 
+                        ON (UC.id_usuarioFK = USER.id_usuario)  
+
+                    INNER JOIN curso as C 
+                        ON (UC.id_cursoFK = C.id_curso)
+
+                    INNER JOIN tipodocumento as TD 
+                        ON (CER.id_tipodocumentoFK = TD.id_tipodocumento)
+
+                    INNER JOIN modulo as M 
+                        ON (TD.id_moduloFK = M.id_modulo)
+                    
+                    WHERE ".
+                        $table.".$atributo LIKE '%". $conteudo ."%'";
+                
+                $result_certificado = $this->conn->getConexao() -> prepare($SQL_certificado);
+
+                $result_certificado->execute();
+            }
+            
+            return $result_certificado->fetchAll(PDO::FETCH_OBJ);
+        }
+        catch(PDOException $err) {
+            die("Erro ao listar certificado do aluno!" . $err -> getMessage());
+        }
     }
 
     public function ListAllCertificateAluno($table, $atributo, $conteudo, $id_usuario)
@@ -274,8 +345,10 @@ class Certificado
             
             if ($tipo_user == 'aluno') 
             {
-                if (($cert->status == 'pendente') || ($cert->status == 'reprovado'))
+                if (($cert->status == 'pendente') || ($cert->status == 'reprovado')) 
+                {
                     $html .= '<a href="editar_certificado-aluno.php?certificado='. htmlspecialchars($cert->id_certificado) .'" class="btn btn-primary">Editar Certificado </a>';
+                }
             
             } else 
             {
