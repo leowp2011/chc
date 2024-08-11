@@ -29,17 +29,34 @@ class Modulo
         return $result->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function ListModulo_Curso()
+    public function ListModulo_Curso($curso)
     {
-        $SQL_modulo = "SELECT * FROM modulo as m 
-                            INNER JOIN 
-                                curso as c
-                            ON 
-                                (m.id_cursoFK = c.id_curso)";
-                        
-        $result = $this->conn->getConexao() -> prepare($SQL_modulo);
-        $result->execute();
+        try 
+        {
+            $SQL_modulo = 
+                "SELECT 
+                    m.id_modulo, m.nome_modulo 
+                FROM 
+                    modulo as m 
+                            
+                INNER JOIN 
+                    curso as c
+                ON 
+                    (m.id_cursoFK = c.id_curso)
+                    
+                WHERE
+                    c.id_curso = :curso
+                    
+                ORDER BY m.nome_modulo";
+                            
+            $result = $this->conn->getConexao() -> prepare($SQL_modulo);
+            $result->bindParam(':curso', $curso, PDO::PARAM_INT);
+            $result->execute();
 
-        return $result->fetchAll(PDO::FETCH_OBJ);
+            return $result->fetchAll(PDO::FETCH_OBJ);
+        }
+        catch(PDOException $err) {
+            die("Erro na listagem dos modulos!" . $err -> getMessage());
+        }
     }
 }

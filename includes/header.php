@@ -30,7 +30,7 @@ $login->VerificarLogin();
         <button class="top-button"><i class="fas fa-dollar-sign fa-lg" style="padding-bottom: 4px;"></i><br>Financeiro</button>
         <button class="top-button"><i class="fas fa-user-graduate fa-lg" style="padding-bottom: 4px;"></i><br>Matrícula Online</button>
         <button class="top-button btn-user"><i class="fas fa-user fa-lg" style="padding-bottom: 4px;"></i><br>
-            <?php ECHO $_SESSION['obj_user']->nome;?>
+            <?php echo $_SESSION['obj_user']->nome; ?>
         </button>
     </div>
 </div>
@@ -55,7 +55,7 @@ $login->VerificarLogin();
                 <ul id="central-aluno-submenu" class="submenu hidden">
                     <li><button>Faltas</button></li>
                     <li><button>Notas</button></li>
-                    <li><button>Horas Complementares</button></li>
+                    <li><button onclick="RedirecionaOfIndex()">Horas Complementares</button></li>
                 </ul>
             </li>
             <li>

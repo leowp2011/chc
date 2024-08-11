@@ -24,15 +24,28 @@ class Login
 		try 
         {
             // Prepara a consulta SQL
-            $SELECT_dados_login = "SELECT id_usuario, nome, sobrenome, ra, tipo
-                    FROM 
-						usuario 
-                    WHERE 
-						ra = :ra 
-					AND 
-						senha = :password 
-                    LIMIT 1";
-        
+            $SELECT_dados_login = 
+				"SELECT 
+					u.id_usuario, u.nome, u.sobrenome, u.ra, u.tipo, c.id_curso
+				FROM 
+					usuario as u
+				
+				LEFT JOIN
+					usuario_curso as uc
+				on 
+					(u.id_usuario = uc.id_usuarioFK)
+				
+				RIGHT JOIN 
+					curso as c
+				on 
+					(c.id_curso = uc.id_cursoFK)
+				
+				WHERE 
+				 	ra = :ra 
+				AND 
+				 	senha = :password 
+				LIMIT 1";
+
             $result_user = $this->conn->getConexao()->prepare($SELECT_dados_login);
             $result_user->bindParam(':ra', $ra, PDO::PARAM_INT);
             $result_user->bindParam(':password', $password, PDO::PARAM_STR);

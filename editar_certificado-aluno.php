@@ -8,13 +8,13 @@ require_once 'classes/class_certificado.php';
 require_once 'classes/class_modulo.php';
 require_once 'classes/class_tipoDocumento.php';
 
-$certificado = new Certificado();
-$modulo = new Modulo();
-$tipoDocumento = new Tipo_Documento();
+$certificado    = new Certificado();
+$modulo         = new Modulo();
+$tipoDocumento  = new Tipo_Documento();
 
 $row_certificado = $certificado->getCertificate($_GET['certificado']);
 
-$listmodulo = $modulo->ListModulo_Curso();
+$listmodulo = $modulo->ListModulo_Curso($_SESSION['obj_user']->id_curso);
 
 $listTipoDoc = $tipoDocumento->ListTipoDocumento_Modulo();
 

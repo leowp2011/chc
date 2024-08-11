@@ -1,9 +1,11 @@
-document.getElementById('toggle-sidebar').addEventListener('click', function () {
+document.getElementById('toggle-sidebar').addEventListener('click', function () 
+{
     document.getElementById('sidebar').classList.toggle('active');
     document.getElementById('main-content').classList.toggle('expanded');
 });
 
-document.getElementById('central-aluno-btn').addEventListener('click', function () {
+document.getElementById('central-aluno-btn').addEventListener('click', function () 
+{
     const submenu = document.getElementById('central-aluno-submenu');
     submenu.classList.toggle('hidden');
     const arrow = this.querySelector('.arrow-icon');
@@ -15,7 +17,8 @@ var x, i, j, l, ll, selElmnt, a, b, c;
 /* Look for any elements with the class "custom-select": */
 x = document.getElementsByClassName("custom-select");
 l = x.length;
-for (i = 0; i < l; i++) {
+for (i = 0; i < l; i++) 
+  {
   selElmnt = x[i].getElementsByTagName("select")[0];
   ll = selElmnt.length;
   /* For each element, create a new DIV that will act as the selected item: */
@@ -98,7 +101,8 @@ const selectPrincipal   = document.getElementById('selectPrincipal');
 const selectDependente  = document.getElementById('selectSecundario');
 const inputText         = document.getElementById('search');
 
-function carregarOpcoesDependentes(valorSelecionado) {
+function carregarOpcoesDependentes(valorSelecionado) 
+{
   // Limpar opções anteriores
   selectDependente.innerHTML = '<option value=""></option>';
 
@@ -153,3 +157,8 @@ selectPrincipal.addEventListener('change', function() {
   const valorSelecionado = this.value;
   carregarOpcoesDependentes(valorSelecionado);
 });
+
+function RedirecionaOfIndex() 
+{
+  window.location.href = 'index.php';  
+}
