@@ -6,6 +6,7 @@
 
 <script src="dist/js/index.js"></script> 
 <script src="dist/js/search.js"></script>
+<script src="dist/js/lista_emissao_oficio.js"></script>
 
 <script>
 // Função para lidar com o clique do link

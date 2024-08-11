@@ -13,8 +13,10 @@ if ($_SESSION['obj_user']->tipo == 'professor')
         <div class="top-content">
             <h2>Horas Complementares</h2>
 
-            <form class="certificaForm" id="certificadoForm" method="post">
+            
 
+            <form class="certificaForm" id="certificadoForm" method="post">
+                
                 <div class="filter-container flex-container">
                     <a>Selecione o Filtro:</a>
                     <select id="selectPrincipal" name="selectTable">
@@ -36,9 +38,12 @@ if ($_SESSION['obj_user']->tipo == 'professor')
 
             </form>
         </div>
-        <hr>
 
-        <a href="incluir_certificado.php" class="btn-add-certificado"><i class="fa fa-plus"></i> Emitir Ofício</a>
+        <a href="lista_emissao_oficio.php" class="btn-add-certificado">
+            <i class="fa fa-plus"></i> Emitir Ofício
+        </a>
+
+        <hr>
 
         <div class="bottom-content" id="certificadosContainer">
             <?php
@@ -53,13 +58,14 @@ if ($_SESSION['obj_user']->tipo == 'professor')
 
 <?php
 }
-else if ($_SESSION['obj_user']->tipo == 'aluno')
+elseif ($_SESSION['obj_user']->tipo == 'aluno')
 {
 ?>
 
     <div id="main-content" class="main-content">
         <div class="top-content">
             <h2>Horas Complementares</h2>
+                
             <form class="certificadoForm" id="certificadoForm">
             <div class="filter-container flex-container">
                 <a>Selecione o Filtro:</a>
@@ -97,4 +103,5 @@ else if ($_SESSION['obj_user']->tipo == 'aluno')
 
 <?php
 }
+
 include 'includes/footer.php';
